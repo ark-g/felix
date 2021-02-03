@@ -204,6 +204,7 @@ func StartDataplaneDriver(configParams *config.Config,
 				IptablesLogPrefix:         configParams.LogPrefix,
 				EndpointToHostAction:      configParams.DefaultEndpointToHostAction,
 				IptablesFilterAllowAction: configParams.IptablesFilterAllowAction,
+				IptablesFilterLastAction:  configParams.IptablesFilterLastAction,
 				IptablesMangleAllowAction: configParams.IptablesMangleAllowAction,
 
 				FailsafeInboundHostPorts:  failsafeInboundHostPorts,

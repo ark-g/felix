@@ -291,8 +291,8 @@ func (r *DefaultRuleRenderer) filterInputChain(ipVersion uint8) *Chain {
 		},
 		Rule{
 			Match:   Match().MarkSingleBitSet(r.IptablesMarkAccept),
-			Action:  r.filterAllowAction,
-			Comment: []string{"Host endpoint policy accepted packet."},
+			Action:  r.filterLastAction,
+			Comment: []string{"Host endpoint policy last action"},
 		},
 	)
 

@@ -218,6 +218,7 @@ type DefaultRuleRenderer struct {
 	Config
 	inputAcceptActions []iptables.Action
 	filterAllowAction  iptables.Action
+	filterLastAction   iptables.Action
 	mangleAllowAction  iptables.Action
 }
 
@@ -274,6 +275,7 @@ type Config struct {
 	IptablesLogPrefix         string
 	EndpointToHostAction      string
 	IptablesFilterAllowAction string
+	IptablesFilterLastAction  string
 	IptablesMangleAllowAction string
 
 	FailsafeInboundHostPorts  []config.ProtoPort
@@ -336,7 +338,7 @@ func NewRenderer(config Config) RuleRenderer {
 	}
 
 	// What should we do with packets that are accepted in the forwarding chain
-	var filterAllowAction, mangleAllowAction iptables.Action
+	var filterAllowAction, filterLastAction, mangleAllowAction iptables.Action
 	switch config.IptablesFilterAllowAction {
 	case "RETURN":
 		log.Info("filter table allowed packets will be returned to FORWARD chain.")
@@ -344,6 +346,17 @@ func NewRenderer(config Config) RuleRenderer {
 	default:
 		log.Info("filter table allowed packets will be accepted immediately.")
 		filterAllowAction = iptables.AcceptAction{}
+	}
+	switch config.IptablesFilterLastAction {
+	case "DROP":
+		log.Info("filter table configured to DROP as a last action.")
+		filterLastAction = iptables.DropAction{}
+	case "RETURN":
+		log.Info("filter table configured to RETURN as a last action, packets will be returned to INPUT chain.")
+		filterLastAction = iptables.ReturnAction{}
+	default:
+		log.Info("filter table configured to ACCEPT as a last action.")
+		filterLastAction = iptables.AcceptAction{}
 	}
 	switch config.IptablesMangleAllowAction {
 	case "RETURN":
@@ -358,6 +371,7 @@ func NewRenderer(config Config) RuleRenderer {
 		Config:             config,
 		inputAcceptActions: inputAcceptActions,
 		filterAllowAction:  filterAllowAction,
+		filterLastAction:   filterLastAction,
 		mangleAllowAction:  mangleAllowAction,
 	}
 }

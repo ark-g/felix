@@ -280,6 +280,8 @@ var _ = DescribeTable("Config parsing",
 
 	Entry("IptablesFilterAllowAction", "IptablesFilterAllowAction",
 		"RETURN", "RETURN"),
+	Entry("IptablesFilterLastAction", "IptablesFilterLastAction",
+		"RETURN", "RETURN"),
 	Entry("IptablesMangleAllowAction", "IptablesMangleAllowAction",
 		"RETURN", "RETURN"),
 

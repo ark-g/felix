@@ -73,6 +73,7 @@ var _ = Describe("Constructor test", func() {
 
 				EndpointToHostAction:      configParams.DefaultEndpointToHostAction,
 				IptablesFilterAllowAction: configParams.IptablesFilterAllowAction,
+				IptablesFilterLastAction:  configParams.IptablesFilterLastAction,
 				IptablesMangleAllowAction: configParams.IptablesMangleAllowAction,
 			},
 			IPIPMTU:          configParams.IpInIpMtu,

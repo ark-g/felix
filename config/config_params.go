@@ -194,6 +194,7 @@ type Config struct {
 	ChainInsertMode             string `config:"oneof(insert,append);insert;non-zero,die-on-fail"`
 	DefaultEndpointToHostAction string `config:"oneof(DROP,RETURN,ACCEPT);DROP;non-zero,die-on-fail"`
 	IptablesFilterAllowAction   string `config:"oneof(ACCEPT,RETURN);ACCEPT;non-zero,die-on-fail"`
+	IptablesFilterLastAction    string `config:"oneof(DROP,RETURN,ACCEPT);ACCEPT;non-zero,die-on-fail"`
 	IptablesMangleAllowAction   string `config:"oneof(ACCEPT,RETURN);ACCEPT;non-zero,die-on-fail"`
 	LogPrefix                   string `config:"string;calico-packet"`
 
